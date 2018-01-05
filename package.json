@@ -1,0 +1,30 @@
+{
+  "name": "prajna-wrapper-plugin",
+  "version": "1.0.0-beta.1",
+  "description": "prajna wrapper code injector",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manhattan-district/prajna-wrapper-plugin.git"
+  },
+  "keywords": [
+    "prajna",
+    "webpack",
+    "plugin"
+  ],
+  "author": "Young Lee <youngleemails@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/manhattan-district/prajna-wrapper-plugin/issues"
+  },
+  "homepage": "https://github.com/manhattan-district/prajna-wrapper-plugin#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "js-beautify": "^1.7.5",
+    "lodash": "^4.17.4",
+    "uglify-js": "^3.3.4"
+  }
+}
