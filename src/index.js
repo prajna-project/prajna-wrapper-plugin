@@ -9,13 +9,13 @@ const fs = require('fs');
 const _ = require('lodash');
 const path = require('path');
 const cheerio = require('cheerio');
-const uglifyJs = require('uglify-js');
+const UglifyJs = require('uglify-js');
 
 let PrajnaWrapperPlugin = function(opt) {
     if (this instanceof PrajnaWrapperPlugin) {
         this.progressive = _.extend({
             crossorigin: true,
-            scriptPath: `http://portal.io:9090/prajna.js`
+            scriptPath: `http://prajna-static.oss-cn-beijing.aliyuncs.com/prajna.js`
         }, opt.options.progressive);
 
         this.options = {
@@ -37,41 +37,18 @@ let PrajnaWrapperPlugin = function(opt) {
         };
 
         this.presets = {
-            'meta': [
-                `<meta class="prajna-gadget-content" name="prajna:autopv" content="${this.options.options.autopv}"/>`
-            ],
+            'meta': [`<meta class="prajna-wrapper-content" name="prajna:autopv" content="${this.options.options.autopv}"/>`],
             'script': [
-                `var __prajnaEnv__ = ${this.options.options.env}`
+                `<script type="text/javascript" class="prajna-wrapper-content">${UglifyJs.minify(
+                     `window.__prajnaEnv__ = "${this.options.options.env}";`
+                ).code}</script>`
             ],
-            'prajna-static': [
-                `<script type="text/javascript" src="${this.progressive.scriptPath}"></script>`
-            ]
+            'prajna-static': [`<script type="text/javascript" charset="utf-8" defer class="prajna-wrapper-content" type="text/javascript" src="${this.progressive.scriptPath}"></script>`]
         };
     } else {
         return new PrajnaWrapperPlugin(opt);
     }
 };
-
-// PrajnaWrapperPlugin.prototype.getHtmlContent = function(type, raw) {
-//     const self = this;
-//     const $ = cheerio.load(raw, {
-//         decodeEntities: false
-//     });
-//     if (type === 'head') {
-//         if (!self.options.prajnaOptions.thirdParty.forbidLX4) {
-//             self.seed.lxmeta.forEach(function(item) {
-//                 $('head').prepend(item);
-//             });
-//             $('head').append(self.seed.lxSeed);
-//         }
-//         $('head').prepend(self.seed.catSeed);
-//         $('head').prepend(self.seed.core);
-//         self.seed.prajnameta.forEach(function(item) {
-//             $('head').prepend(item);
-//         });
-//     }
-//     return $.html();
-// };
 
 PrajnaWrapperPlugin.prototype.injectPresets = function(raw) {
     const self = this;
@@ -81,17 +58,25 @@ PrajnaWrapperPlugin.prototype.injectPresets = function(raw) {
     let document = raw;
     const htmlRegExp = /(<html\s*>)/i;
     const headRegExp = /(<\/head\s*>)/i;
-    // if (htmlRegExp.test(raw) && !headRegExp.test(raw)) {
-    //     $('html').prepend('<head></head>')
-    //     document = $.html();
-    // }
-    // if (headRegExp.test(raw)) {
-    //     document = self.getHtmlContent('head', raw);
-    // }
+    if (htmlRegExp.test(raw) && !headRegExp.test(raw)) {
+        $('html').prepend('<head></head>')
+        document = $.html();
+    }
+    if (headRegExp.test(document)) {
+        self.presets['prajna-static'].forEach(function(sdk) {
+            $('head').prepend(sdk);
+        });
+        self.presets.script.forEach(function(script) {
+            $('head').prepend(script);
+        });
+        self.presets.meta.forEach(function(meta) {
+            $('head').prepend(meta);
+        });
+        document = $.html();
+    }
     if (self.options.options.progressive.crossorigin) {
         document = document.replace(/<script/g, '<script crossorigin');
     }
-	console.log(document);
     return document;
 };
 
@@ -114,7 +99,7 @@ PrajnaWrapperPlugin.prototype.apply = function(compiler) {
                     }
                 });
             }
-            // callback(null, data);
+            callback(null, data);
         });
     });
 };
