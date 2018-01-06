@@ -15,7 +15,7 @@ let PrajnaWrapperPlugin = function(opt) {
     if (this instanceof PrajnaWrapperPlugin) {
         this.progressive = _.extend({
             crossorigin: true,
-            scriptPath: `http://prajna-static.oss-cn-beijing.aliyuncs.com/prajna.js`
+            scriptPath: `https://prajna-static.oss-cn-beijing.aliyuncs.com/prajna.js`
         }, opt.options.progressive);
 
         this.options = {
@@ -37,7 +37,9 @@ let PrajnaWrapperPlugin = function(opt) {
         };
 
         this.presets = {
-            'meta': [`<meta class="prajna-wrapper-content" name="prajna:autopv" content="${this.options.options.autopv}"/>`],
+            'meta': [
+                `<meta class="prajna-wrapper-content" name="prajna:autopv" content="${this.options.options.autopv}"/>`
+            ],
             'script': [
                 `<script type="text/javascript" class="prajna-wrapper-content">${UglifyJs.minify(
                      `window.__prajnaEnv__ = "${this.options.options.env}";`
@@ -75,7 +77,7 @@ PrajnaWrapperPlugin.prototype.injectPresets = function(raw) {
         document = $.html();
     }
     if (self.options.options.progressive.crossorigin) {
-        document = document.replace(/<script/g, '<script crossorigin');
+        document = document.replace(/<script/g, '<script crossorigin="anonymous"');
     }
     return document;
 };
