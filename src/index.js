@@ -38,6 +38,7 @@ let PrajnaWrapperPlugin = function(opt) {
 
         this.presets = {
             'meta': [
+                `<link class="prajna-wrapper-content" rel="dns-prefetch" href="//prajna-static.oss-cn-beijing.aliyuncs.com">`,
                 `<meta class="prajna-wrapper-content" name="prajna:autopv" content="${this.options.options.autopv}"/>`
             ],
             'script': [
