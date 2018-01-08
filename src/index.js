@@ -43,10 +43,12 @@ let PrajnaWrapperPlugin = function(opt) {
             ],
             'script': [
                 `<script type="text/javascript" class="prajna-wrapper-content">${UglifyJs.minify(
-                     `window.__prajnaEnv__ = "${this.options.options.env}";`
+                     `
+                     window.__prajnaEnv__ = "${this.options.options.env}";
+                     `
                 ).code}</script>`
             ],
-            'prajna-static': [`<script type="text/javascript" charset="utf-8" defer class="prajna-wrapper-content" type="text/javascript" src="${this.progressive.scriptPath}"></script>`]
+            'prajna-static': [`<script type="text/javascript" charset="utf-8" async class="prajna-wrapper-content" type="text/javascript" src="${this.progressive.scriptPath}"></script>`]
         };
     } else {
         return new PrajnaWrapperPlugin(opt);
