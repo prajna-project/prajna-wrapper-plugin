@@ -35,10 +35,12 @@ let PrajnaWrapperPlugin = function(opt) {
                 progressive: this.progressive
             }
         };
+        
+        this.dns = this.progressive.scriptPath.substring(this.progressive.scriptPath.indexOf('://') + 1, this.progressive.scriptPath.substring(this.progressive.scriptPath.indexOf('://') + 3).indexOf('/') + this.progressive.scriptPath.indexOf('://') + 3);
 
         this.presets = {
             'meta': [
-                `<link class="prajna-wrapper-content" rel="dns-prefetch" href="//prajna-static.oss-cn-beijing.aliyuncs.com">`,
+                `<link class="prajna-wrapper-content" rel="dns-prefetch" href="${this.dns}">`,
                 `<meta class="prajna-wrapper-content" name="prajna:autopv" content="${this.options.options.autopv}"/>`
             ],
             'script': [
