@@ -21,7 +21,7 @@ let PrajnaWrapperPlugin = function(opt) {
         this.options = {
             includes: opt.includes || [],
             options: {
-                autopv: opt.options.autopv || true,
+                autopv: opt.options.autopv || false,
                 env: opt.options.env || 'dev',
                 project: opt.options.project || 'unnamed-project',
                 envMapping: opt.options.envMapping || {
@@ -44,7 +44,11 @@ let PrajnaWrapperPlugin = function(opt) {
             'script': [
                 `<script type="text/javascript" class="prajna-wrapper-content">${UglifyJs.minify(
                      `
+                     window.__prajnaAutoPV__ = "${this.options.options.autopv}";
+                     window.__envMapping__ = ${JSON.stringify(this.options.options.envMapping)};
                      window.__prajnaEnv__ = "${this.options.options.env}";
+                     window.__host__ = __envMapping__.${this.options.options.env};
+                     window.__appName__ = "${this.options.options.project}";
                      `
                 ).code}</script>`
             ],
