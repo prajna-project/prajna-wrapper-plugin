@@ -54,7 +54,7 @@ let PrajnaWrapperPlugin = function(opt) {
                      `
                 ).code}</script>`
             ],
-            'prajna-static': [`<script type="text/javascript" charset="utf-8" async class="prajna-wrapper-content" type="text/javascript" src="${this.progressive.scriptPath}"></script>`]
+            'prajna-static': [`<script type="text/javascript" charset="utf-8" class="prajna-wrapper-content" type="text/javascript" src="${this.progressive.scriptPath}"></script>`]
         };
     } else {
         return new PrajnaWrapperPlugin(opt);
