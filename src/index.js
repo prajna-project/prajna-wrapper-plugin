@@ -15,7 +15,7 @@ let PrajnaWrapperPlugin = function(opt) {
     if (this instanceof PrajnaWrapperPlugin) {
         this.progressive = _.extend({
             crossorigin: true,
-            scriptPath: `https://prajna-static.oss-cn-beijing.aliyuncs.com/prajna.js`
+            scriptPath: `https://cdn.jsdelivr.net/npm/prajna@1.0.0-rc.8/dist/prajna.1.0.0-rc.8.js`
         }, opt.options.progressive);
 
         this.options = {
@@ -24,19 +24,20 @@ let PrajnaWrapperPlugin = function(opt) {
                 autopv: opt.options.autopv || false,
                 env: opt.options.env || 'dev',
                 project: opt.options.project || 'unnamed-project',
-                envMapping: opt.options.envMapping || {
+                prajnaServerUrls: _.extend({
                     'dev': '//',
                     'test': '//',
                     'alpha': '//',
                     'beta': '//',
                     'release-candidate': '//',
                     'product': '//'
-                },
+                }, opt.options.prajnaServerUrls),
                 progressive: this.progressive
             }
         };
-        
-        this.dns = this.progressive.scriptPath.substring(this.progressive.scriptPath.indexOf('://') + 1, this.progressive.scriptPath.substring(this.progressive.scriptPath.indexOf('://') + 3).indexOf('/') + this.progressive.scriptPath.indexOf('://') + 3);
+
+        this.dns = this.progressive.scriptPath.substring(this.progressive.scriptPath.indexOf('://') + 1,
+                                                         this.progressive.scriptPath.substring(this.progressive.scriptPath.indexOf('://') + 3).indexOf('/') + this.progressive.scriptPath.indexOf('://') + 3);
 
         this.presets = {
             'meta': [
@@ -46,10 +47,10 @@ let PrajnaWrapperPlugin = function(opt) {
             'script': [
                 `<script type="text/javascript" class="prajna-wrapper-content">${UglifyJs.minify(
                      `
-                     window.__prajnaAutoPV__ = "${this.options.options.autopv}";
-                     window.__envMapping__ = ${JSON.stringify(this.options.options.envMapping)};
+                     window.__prajnaAutoPV__ = ${this.options.options.autopv};
+                     window.__prajnaServerUrls__ = ${JSON.stringify(this.options.options.prajnaServerUrls)};
                      window.__prajnaEnv__ = "${this.options.options.env}";
-                     window.__host__ = __envMapping__.${this.options.options.env};
+                     window.__prajnaServerUrl__ = window.__prajnaServerUrls__.${this.options.options.env};
                      window.__appName__ = "${this.options.options.project}";
                      `
                 ).code}</script>`
