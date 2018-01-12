@@ -32,4 +32,10 @@ plugins: [
 Key | Value | Description
 -------------------- | :---------: | ---------
 includes | [string] | html or template files you want to inject prajna code to
-options.autopv | boolean | send pageview request automaticlly or not `true` `|` `false`
+options.autopv | boolean | send pageview request automaticlly or not: `true`, `false`
+options.env | string | application environment: `dev`, `test`, `alpha`, `beta`, `release-candidate`, `product`
+options.project | string | application name
+options.prajnaServerUrls | Object | key value mapping between environment and server url for handling prajna requests: `{"dev": "https://example.com/api/prajna"}`
+options.progressive.crossorigin | boolean | add crossorigin attribute for resources on the html or template file
+options.progressive.scriptPath | string | your prajna cdn url
+
