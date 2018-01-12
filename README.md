@@ -6,7 +6,7 @@
 
 import prajna-wrapper-plugin in your webpack.config.js
 
-```
+```javascript
 const PrajnaWrapperPlugin = require('prajna-wrapper-plugin');
 // ...
 plugins: [
