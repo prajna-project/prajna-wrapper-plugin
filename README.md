@@ -32,3 +32,4 @@ plugins: [
 Key | Value | Description
 -------------------- | :---------: | ---------
 includes | [string] | html or template files you want to inject prajna code to
+options.autopv | boolean | send pageview request automaticlly or not `true | false`
