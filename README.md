@@ -33,7 +33,7 @@ Key | Value | Required | Description
 -------------------- | :---------: | :---------: | ---------
 includes | [string] | ✔ | html or template files you want to inject prajna code to
 options.autopv | boolean | ✘ | send pageview request automaticlly or not: `true`, `false`, default is false
-options.env | string | ✘ | application environment: `dev`, `test`, `alpha`, `beta`, `release-candidate`, `product`, default is dev
+options.env | string | ✘ | application environment: `dev`, `test`, `alpha`, `beta`, `release-candidate`, `product`, default is `dev`
 options.project | string | ✔ |application name
 options.prajnaServerUrls | object | ✔ | key value mapping between environment and server url for handling prajna requests: `{"dev": "https://example.com/api/prajna"}`
 options.progressive.crossorigin | boolean | ✘ | add crossorigin attribute for resources on the html or template file
