@@ -15,7 +15,7 @@ let PrajnaWrapperPlugin = function(opt) {
     if (this instanceof PrajnaWrapperPlugin) {
         this.progressive = _.extend({
             crossorigin: true,
-            scriptPath: `https://cdn.jsdelivr.net/npm/prajna@1.0.0-rc.9/dist/prajna.1.0.0-rc.9.js`
+            scriptPath: `https://cdn.jsdelivr.net/npm/prajna@1.0.0-rc.10/dist/prajna.1.0.0-rc.10.js`
         }, opt.options.progressive);
 
         this.options = {

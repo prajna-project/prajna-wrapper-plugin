@@ -1,6 +1,6 @@
 {
   "name": "prajna-wrapper-plugin",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.3",
   "description": "prajna wrapper code injector",
   "main": "index.js",
   "scripts": {
